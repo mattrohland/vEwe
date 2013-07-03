@@ -1,5 +1,8 @@
-(function(){ 
+(function(){
+	// AMDless define method
 	if(typeof define != 'function') define = function(a,b){ window.viewFactory = b($); };
+	
+	// AMD define wrapper
 	define(
 		[
 			'3rdparty/jquery'
