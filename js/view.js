@@ -2,56 +2,134 @@ define(
 	[
 		'3rdparty/jquery'
 	],
-	function($){
+	function($){ "use strict";
 		// View
-		var View = function(options){
-			var options = (typeof options == 'undefined')? {} : options,
-				defaults = {
-					'selector': 'body',
-					'events': []
-				};
-			this.options = this.$.extend({},defaults,options);
-			this.helpers = View.helpers;
+		var ViewFactory = function(){
+			return this;
 		};
-		View.prototype = {
+		ViewFactory.prototype = {
 			'$': $,
-			'on': function(){
-				this.elementRefresh();
-				this.eventsOn();
-			},
-			'off': function(){
-				this.eventsOff();
-			},
-			'elementRefresh': function(){
-				delete this.element;
-				this.element = new Element(this.options.selector);
-				this.$el = this.element.get(); // For shortcut sake.
-			},
-			'eventStandardize': function(rawEve){
+			'create': function(){
 				var me = this,
-					eve = this.$.extend([],rawEve),
-					handlerMaybe = eve[eve.length-1];
+					view;
 
-				if(typeof handlerMaybe == 'string' && typeof me.options[handlerMaybe] == 'function')
-					eve[eve.length-1] = me.options[handlerMaybe];
-				
-				return eve;
+				return (view = me.define.apply(me, arguments))? new view : false ;
 			},
-			'eventsOn': function(){
+			'define': function(){
+				var proto = {},
+					inheritanceMethod = false,
+					inheritanceArguments,
+					protoDefault = {
+						'$': $,
+						'selector': 'body',
+						'events': [],
+						'on': function(){
+							this._elementRefresh();
+							this._eventsOn();
+						},
+						'off': function(){
+							this._eventsOff();
+						},
+						'_elementRefresh': function(){
+							delete this.element;
+							this.element = new Element(this.selector);
+							this.$el = this.element.get(); // For shortcut sake.
+						},
+						'_eventStandardize': function(rawEve){
+							var me = this,
+								eve = this.$.extend([],rawEve),
+								handlerMaybe = eve[eve.length-1];
+
+							if(typeof handlerMaybe == 'string' && typeof me[handlerMaybe] == 'function')
+								eve[eve.length-1] = me[handlerMaybe];
+							
+							return eve;
+						},
+						'_eventsOn': function(){
+							var i,
+								eve;
+
+							for(i in this.events){
+								eve = this._eventStandardize(this.events[i]);
+								this.$el.on.apply(this.$el, eve);
+							}
+						},
+						'_eventsOff': function(){
+							var i;
+							
+							for(i in this.events){
+								this.$el.off.apply(this.$el, this.events[i]);
+							}
+						}
+					},
+					View = function(){};
+
+
+				// Process Arguments
+				switch( arguments.length ){
+					case 0:
+						return false;
+						break;
+					case 1:
+						proto = arguments[0];
+						break;
+					default:
+						if(typeof arguments[0] == 'object'){
+							inheritanceMethod = 'inherit';
+							inheritanceArguments = arguments;
+						}else{
+							inheritanceMethod = arguments[0]
+							inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
+						}
+						break;
+				}
+
+				if(inheritanceMethod){
+					proto = (typeof inheritanceMethod == 'string')? this[inheritanceMethod].apply(this,inheritanceArguments) : inheritanceMethod.apply(this,inheritanceArguments);
+				}
+
+				View.prototype = this.$.extend({}, protoDefault, proto);
+				return View;
+			},
+			'inherit': function(){
 				var i,
-					eve;
+					protos = Array.prototype.slice.call(arguments),
+					proto = {};
 
-				for(i in this.options.events){
-					eve = this.eventStandardize(this.options.events[i]);
-					this.$el.on.apply(this.$el, eve);
+				for(i in protos){
+					proto = this.$.extend(proto, protos[i]);
 				}
+
+				return proto;
 			},
-			'eventsOff': function(){
-				var i;
-				
-				for(i in this.options.events){
-					this.$el.off.apply(this.$el, this.options.events[i]);
+			'inheritAndMergeEvents': function(){
+				var i,
+					protos = Array.prototype.slice.call(arguments),
+					proto = {},
+					events = [];
+
+				for(i in protos){
+					proto = this.$.extend(proto, protos[i]);
+					console.log(typeof protos[i]['events']);
+					if(typeof protos[i]['events'] == 'object')
+						events = this._merge(events, protos[i]['events']);
 				}
+				proto['events'] = events;
+
+				return proto;
+			},
+			'_merge': function(){
+				var i,
+					ii,
+					merged = [];
+
+				for(i in arguments){
+					for(ii in arguments[i]){
+						merged.push(arguments[i][ii]);
+					}
+				}
+
+				return merged;
 			}
 		};
 
@@ -78,22 +156,6 @@ define(
 			}
 		};
 
-		// Element
-		View.helpers = {
-			'$': $,
-			'merge': function(){
-				var i,
-					ii,
-					merged = [];
-
-				for(i in arguments){
-					for(ii in arguments[i]){
-						merged.push(arguments[i][ii]);
-					}
-				}
-				return merged;
-			}
-		};
-		return View;
+		return new ViewFactory();
 	}
 );
