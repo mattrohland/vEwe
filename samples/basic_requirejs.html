@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>vEwe Sample - Basic</title>
+
+		<script type="text/javascript" src="http://requirejs.org/docs/release/2.1.6/minified/require.js"></script>
+		<script type="text/javascript" src="js/requireInit.js"></script>
+		<script type="text/javascript">
+			// Define a custom view
+			define('viewPrototype',
+				function(){
+					return {
+						'events': [
+							['mousedown','a',function(){ console.log('Stop poking me!'); }],
+							['mouseup','a','sayThankYou']
+						],
+						'sayThankYou': function(){ console.log('Thank you.'); }
+					}
+				}
+			);
+
+
+			define('viewPrototypeExt',
+				function(){
+					return {
+						'events': [['click','clickity']],
+						'clickity': function(){ console.log('Clickity...'); },
+						'sayThankYou': function(){ console.log('Thank you too.'); }
+					};
+				}
+			);
+
+
+			// Use the custom view
+			require(
+				['view','viewPrototype','viewPrototypeExt'],
+				function(viewFactory,viewPrototype,viewPrototypeExt){
+					view = viewFactory.create('inheritAndMergeEvents',viewPrototype,viewPrototypeExt);
+
+					view.$(function(){
+						view.on();
+					});
+				}
+			);
+		</script>
+	</head>
+	<body>
+		Open you browser console and <a href="#">click here</a>.
+	</body>
+</html>
