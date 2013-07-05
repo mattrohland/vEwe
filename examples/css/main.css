@@ -1,0 +1,63 @@
+html,
+body{
+	background: #EEE;
+	margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	color: #25649F;
+	font-weight: normal;
+	margin: 2em 0 .5em 0;
+}
+a{
+	color: #939;
+}
+figure{
+	margin: 0;
+	padding: 20px;
+	border: 1px dashed #CCC;
+	width: 250px;
+	text-align: center;
+}
+pre{
+	overflow: auto;
+	display: block;
+	border: 1px dashed #CCC;
+	background: #EEE;
+	padding: 20px;
+	margin: 1em 0;
+}
+
+.stage{
+	position: relative;
+	background: #FFF;
+	margin: 100px auto 20px auto;
+	padding: 50px;
+	max-width: 780px;
+	min-width: 460px;
+	border: 1px solid #DDD;
+}
+.stage:before{
+	content: url('../images/vEwes.png');
+	position: absolute;
+	top: -64px;
+	left: -64px;
+	transform: rotate(-15deg);
+	-webkit-transform: rotate(-15deg);
+}
+.stage > *:first-child{
+	margin-top: 0;
+}
+
+@media(max-width: 880px){
+	.stage{
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		margin: 0;
+	}
+}

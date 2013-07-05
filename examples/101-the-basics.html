@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<title>vEwe Examples | 101 - The Basics</title>
+
+		<link type="text/css" rel="stylesheet" href="css/main.css">
+		<style type="text/css">
+			.tada{
+				display: none;
+			}
+		</style>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
+		<script type="text/javascript" src="../js/view.js"></script>
+		<script type="text/javascript">
+			var viewPrototype, view;
+
+			// Define a view prototype
+			viewPrototype = {
+				'events': [
+					['click','.box','hideBox'],
+					['click','.tada','showBox']
+				],
+				'hideBox': function(e){
+					// Hide the box and ta-da!
+					e.data.$el.find('.box').hide();
+					e.data.$el.find('.tada').show();
+				},
+				'showBox': function(e){
+					// Show the box and hide animal
+					e.data.$el.find('.tada').hide();
+					e.data.$el.find('.box').show();
+				}
+			}
+
+			// Create a view from the view prototype
+			view = viewFactory.create(viewPrototype);
+			view.$(function(){
+				view.on();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="stage">
+			<h1>101 - The Basics</h1>
+			<figure class="tada">
+				<img src="images/frog.png">
+				<figcaption>Ta-da!</figcaption>
+			</figure>
+			<figure class="box">
+				<img src="images/box.png">
+				<figcaption>What's under the box?</figcaption>
+			</figure>
+		</div>
+	</body>
+</html>

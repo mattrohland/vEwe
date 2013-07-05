@@ -23,33 +23,24 @@
 					return (view = me.define.apply(me, arguments))? new view : false ;
 				},
 				'define': function(){
-					var proto = {},
+					var me = this,
+						proto = {},
 						inheritanceMethod = 'inherit',
 						inheritanceArguments,
 						View = function(){ return this; }; // Create view "Class"
 
 					// Process Arguments
-					switch( arguments.length ){
-						case 0:
-							return false;
-							break;
-						case 1: // If only 1 argument is provided assume it is the prototype
-							inheritanceArguments = (Array.prototype.slice.call(arguments));
-							break;
-						default: // If more than 1 is passed assume prototype inheritance needs to occur
-							
-							// If the first argument is an object we assume we're 
-							// applying basic prototype inheritance to all the arguments
-							if(typeof arguments[0] == 'object'){
-								inheritanceArguments = (Array.prototype.slice.call(arguments))
-							}else{
-								inheritanceMethod = arguments[0]
-								inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
-							}
-							break;
+					if(arguments.length == 0){
+						return false;
+					}else if(typeof arguments[0] == 'object'){
+						inheritanceArguments = (Array.prototype.slice.call(arguments))
+					}else{
+						inheritanceMethod = arguments[0]
+						inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
 					}
 
 					// All items inherit from viewDefaultPrototype
+					inheritanceArguments.unshift({});
 					inheritanceArguments.unshift(this.viewDefaultPrototype);
 
 					// Begin inheritance if we need to
@@ -57,13 +48,16 @@
 
 					// All prototypes start from the viewDefaultPrototype
 					View.prototype = proto;
+					View.prototype.factory = me;
 
 					// Return "Class" definition
 					return View;
 				},
 				'inherit': function(){
+					var extendArgs = (Array.prototype.slice.call(arguments))
+
 					// Runs an extend on all arguments
-					return this.$.extend.apply(this,arguments);
+					return this.$.extend.apply(this,extendArgs);
 				},
 				'inheritAndMergeEvents': function(){
 					// Runs an extend on all arguments
@@ -117,12 +111,16 @@
 					},
 					'_eventStandardize': function(rawEve){
 						var me = this,
-							eve = this.$.extend([], rawEve),
+							eve = me.factory._merge([], rawEve),
 							handlerMaybe = eve[eve.length-1];
 
 						if(typeof handlerMaybe == 'string' && typeof me[handlerMaybe] == 'function')
 							eve[eve.length-1] = me[handlerMaybe];
-						
+
+						// In jQuery's on method data is always the second to last argument.
+						// More hacktastic than I would like.
+						eve.splice(eve.length-1, 0, me);
+
 						return eve;
 					},
 					'_eventsOn': function(){
