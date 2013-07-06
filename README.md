@@ -1,6 +1,6 @@
 #vEwe - A Javascript Event Manager
 
-vEwe is a JS library used to manage events in an easy to extend object. With jQuery as its sole dependency it provides a lightweight alternative for those wishing to avoid a full fledged "framework".
+vEwe is a JS library used to manage events through an easy to extend view object. With jQuery as its sole dependency it provides a lightweight alternative for those wishing to avoid a full fledged "framework".
 
 **Key features include:**
 + AMD (asynchronous module definition) ready
@@ -8,4 +8,4 @@ vEwe is a JS library used to manage events in an easy to extend object. With jQu
 + Light weight prototypical view objects
 + Events with all the power of jQuery's .on()
 
-To see this library's examples in action visit: http://vewe.mattrohland.com/examples/
+For more information visit: http://vewe.mattrohland.com/
