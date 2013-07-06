@@ -39,7 +39,7 @@
 }</pre>
 			<p>Include the JS dependencies.</p>
 <pre>&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-2.0.2.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;../js/view.js&quot;&gt;&lt;/script&gt;</pre>
+&lt;script type=&quot;text/javascript&quot; src=&quot;../../js/view.js&quot;&gt;&lt;/script&gt;</pre>
 
 			<p>Define a view prototype.</p>
 <pre>viewPrototype = {
@@ -79,7 +79,7 @@
 		['click','.tada','showBox']
 	],
 	'tada': function(e){
-		e.data.$el.find('.tada img').attr('src','images/duck.png');
+		e.data.$el.find('.tada img').attr('src','../images/duck.png');
 	}
 }</pre>
 
