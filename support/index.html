@@ -8,10 +8,19 @@
 	</head>
 	<body>
 		<div class="stage">
-			<h1>vEwe Examples</h1>
-			<p></p>
+			<h1>vEwe</h1>
+			
+			<p>vEwe is a JS library used to manage events through an easy to extend view object. With jQuery as its sole dependency it provides a lightweight alternative for those wishing to avoid a full fledged "framework".</p>
+			<ul>
+				<li>AMD (asynchronous module definition) ready</li>
+				<li>Unlimited inheritance in 2 flavors</li>
+				<li>Light weight prototypical view objects</li>
+				<li>Events with all the power of jQuery's .on()</li>
+			</ul>
+			
+			<h2>Examples</h2>
 
-			<h2>101 - The Basics</h2>
+			<h3>101 - The Basics</h3>
 
 			<p>We're going to start with a simple view that handles toggling between 2 DIVs.</p>
 			<p>Setup the HTML.</p>
@@ -57,9 +66,9 @@
 <pre>view.$(function(){
 	view.on();
 });</pre>
-			<p><a href="101-the-basics.html">See Example</a></p>
+			<p><a href="examples/101-the-basics.html">See Example</a></p>
 
-			<h2>201 - Inheritance</h2>
+			<h3>201 - Inheritance</h3>
 			<p>Now let's say you want to make a new view that inherits the methods available in the view from 101.</p>
 
 			<p>Define a second prototype.</p>
@@ -77,9 +86,9 @@
 			<p>Pass both prototypes into the view factory's create method so that a view can be generated using both prototypes.</p>
 <pre>view = viewFactory.create(viewPrototype, viewPrototypeExtended);</pre>
 
-			<p><a href="201-inheritance.html">See Example</a></p>
+			<p><a href="examples/201-inheritance.html">See Example</a></p>
 
-			<h2>202 - Inheritance &amp; Merged Events</h2>
+			<h3>202 - Inheritance &amp; Merged Events</h3>
 			<p>The basic inheritance from 201 is pretty spiffy, but how much cooler would it have been if you hadn't had to supply all those duplicate events to each prototype? Surprise!</p>
 
 			<p>Define a new prototype. Notice that we aren't bothering to include events from the parent prototype.</p>
@@ -93,7 +102,7 @@
 }</pre>
 			<p>Using our trusty create method we now specify a special type of inheritance.</p>
 <pre>view = viewFactory.create('inheritAndMergeEvents', viewPrototype, viewPrototypeExtended);</pre>
-			<p><a href="202-inheritance-and-events.html">See Example</a></p>
+			<p><a href="examples/202-inheritance-and-events.html">See Example</a></p>
 
 		</div>
 	</body>
