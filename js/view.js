@@ -1,3 +1,10 @@
+/*!
+ * vEwe
+ * https://github.com/mattrohland/vEwe
+ * 
+ * Copyright (c) 2013 Matt Rohland
+ * Released under the MIT license
+ */
 (function(){
 	// AMDless define method
 	if(typeof define != 'function') define = function(a,b){ window.viewFactory = b($); };
