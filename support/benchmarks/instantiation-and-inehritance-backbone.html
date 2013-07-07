@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<title>Backbone Benchmark - Simple Instantiation</title>
+		<title>Backbone Benchmark - Instantiation &amp; Inheritance</title>
 
 		<link type="text/css" rel="stylesheet" href="../css/main.css">
-		
+
 		<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
 		<script type="text/javascript" src="http://backbonejs.org/backbone-min.js"></script>
 		<script type="text/javascript">
@@ -11,12 +11,15 @@
 				count = 100000,
 				start,
 				end,
-				viewPrototypeABCDE, 
+				viewPrototypeA, 
+				viewPrototypeB, 
+				viewPrototypeC, 
+				viewPrototypeD, 
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			viewPrototypeABCDE = {
+			viewPrototypeA = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -25,13 +28,40 @@
 				],
 				'a': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeB = {
+				'events': [
+					['render','a'],
+					['render','b'],
+					['render','c'],
+					['render','d']
+				],
 				'b': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeC = {
+				'events': [
+					['render','a'],
+					['render','b'],
+					['render','c'],
+					['render','d']
+				],
 				'c': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeD = {
+				'events': [
+					['render','a'],
+					['render','b'],
+					['render','c'],
+					['render','d']
+				],
 				'd': function(e){
 					return true;
 				}
@@ -40,14 +70,14 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = Backbone.View.extend(viewPrototypeABCDE);
+				views[i] = ((((Backbone.View.extend(viewPrototypeA)).extend(viewPrototypeB)).extend(viewPrototypeC)).extend(viewPrototypeD))
 			}
 			end = (new Date()).getTime();
 		</script>
 	</head>
 	<body>
 		<div class="stage">
-			<h1>Backbone Benchmark - Simple Instantiation</h1>
+			<h1>Backbone Benchmark - Instantiation &amp; Inheritance</h1>
 			<pre id="results"><script type="text/javascript">
 				results += 'Iterations: '+count+'\n';
 				results += 'Time: '+(end-start)+'(ms)';

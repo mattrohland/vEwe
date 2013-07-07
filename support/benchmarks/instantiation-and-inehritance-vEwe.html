@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>vEwe Benchmark - Simple Instantiation</title>
+		<title>vEwe Benchmark - Instantiation &amp; Inheritance</title>
 
 		<link type="text/css" rel="stylesheet" href="../css/main.css">
 
@@ -11,12 +11,15 @@
 				count = 100000,
 				start,
 				end,
-				viewPrototypeABCDE, 
+				viewPrototypeA, 
+				viewPrototypeB, 
+				viewPrototypeC, 
+				viewPrototypeD,
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			viewPrototypeABCDE = {
+			viewPrototypeA = {
 				'events': [
 					['view.on','a'],
 					['view.on','b'],
@@ -25,13 +28,40 @@
 				],
 				'a': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeB = {
+				'events': [
+					['view.on','a'],
+					['view.on','b'],
+					['view.on','c'],
+					['view.on','d'],
+				],
 				'b': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeC = {
+				'events': [
+					['view.on','a'],
+					['view.on','b'],
+					['view.on','c'],
+					['view.on','d'],
+				],
 				'c': function(e){
 					return true;
-				},
+				}
+			}
+
+			viewPrototypeD = {
+				'events': [
+					['view.on','a'],
+					['view.on','b'],
+					['view.on','c'],
+					['view.on','d'],
+				],
 				'd': function(e){
 					return true;
 				}
@@ -40,14 +70,14 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = viewFactory.create(viewPrototypeABCDE);
+				views[i] = viewFactory.create(viewPrototypeA, viewPrototypeB, viewPrototypeC, viewPrototypeD);
 			}
 			end = (new Date()).getTime();
 		</script>
 	</head>
 	<body>
 		<div class="stage">
-			<h1>vEwe Benchmark - Simple Instantiation</h1>
+			<h1>vEwe Benchmark - Instantiation &amp; Inheritance</h1>
 			<pre id="results"><script type="text/javascript">
 				results += 'Iterations: '+count+'\n';
 				results += 'Time: '+(end-start)+'(ms)';
