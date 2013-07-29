@@ -7,7 +7,7 @@
  */
 (function(){
 	// AMDless define method
-	if(typeof define != 'function') define = function(a,b){ window.viewFactory = b($); };
+	if(typeof define != 'function') define = function(a,b){ window.vEweFactory = b($); };
 	
 	// AMD define wrapper
 	define(
@@ -18,23 +18,23 @@
 
 			// View Factory
 			// Assists in defining and instantiating Views.
-			var ViewFactory = function(){
+			var VEweFactory = function(){
 				return this;
 			};
-			ViewFactory.prototype = {
+			VEweFactory.prototype = {
 				'$': $,
 				'create': function(){
 					var me = this,
-						view;
+						vEwe;
 
-					return (view = me.define.apply(me, arguments))? new view : false ;
+					return (vEwe = me.define.apply(me, arguments))? new vEwe : false ;
 				},
 				'define': function(){
 					var me = this,
 						proto = {},
 						inheritanceMethod = 'inherit',
 						inheritanceArguments,
-						View = function(){ return this; }; // Create view "Class"
+						VEwe = function(){ return this; }; // Create vEwe "Class"
 
 					// Process Arguments
 					if(arguments.length == 0){
@@ -46,19 +46,19 @@
 						inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
 					}
 
-					// All items inherit from viewDefaultPrototype
+					// All items inherit from vEweDefaultPrototype
 					inheritanceArguments.unshift({});
-					inheritanceArguments.unshift(this.viewDefaultPrototype);
+					inheritanceArguments.unshift(this.vEweDefaultPrototype);
 
 					// Begin inheritance if we need to
 					proto = (typeof inheritanceMethod == 'string')? this[inheritanceMethod].apply(this,inheritanceArguments) : inheritanceMethod.apply(this,inheritanceArguments);
 
-					// All prototypes start from the viewDefaultPrototype
-					View.prototype = proto;
-					View.prototype.factory = me;
+					// All prototypes start from the vEweDefaultPrototype
+					VEwe.prototype = proto;
+					VEwe.prototype.factory = me;
 
 					// Return "Class" definition
-					return View;
+					return VEwe;
 				},
 				'inherit': function(){
 					var extendArgs = (Array.prototype.slice.call(arguments))
@@ -97,19 +97,19 @@
 
 					return merged;
 				},
-				// This is the default view prototype on which all views are based
-				'viewDefaultPrototype': {
+				// This is the default vEwe prototype on which all vEwes are based
+				'vEweDefaultPrototype': {
 					'$': $,
 					'selector': 'body',
 					'events': [],
 					'on': function(){
 						this._elementRefresh();
 						this._eventsOn();
-						this.$el.trigger('view.on');
+						this.$el.trigger('vEwe.on');
 					},
 					'off': function(){
 						this._eventsOff();
-						this.$el.trigger('view.off');
+						this.$el.trigger('vEwe.off');
 					},
 					'_elementRefresh': function(){
 						delete this.element;
@@ -151,7 +151,7 @@
 
 
 			// Element
-			// Enhances the View's top level DOM element.
+			// Enhances the VEwe's top level DOM element.
 			// Note: This is currently overkill.
 			var Element = function(selector){
 				this.options = {
@@ -174,9 +174,9 @@
 				}
 			};
 
-			// The View Factory is intended to be sudo singleton in nature
+			// The VEwe Factory is intended to be sudo singleton in nature
 			// so we return an instance
-			return new ViewFactory();
+			return new VEweFactory();
 		}
 	);
 })();

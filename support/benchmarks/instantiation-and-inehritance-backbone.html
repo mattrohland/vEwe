@@ -11,15 +11,15 @@
 				count = 100000,
 				start,
 				end,
-				viewPrototypeA, 
-				viewPrototypeB, 
-				viewPrototypeC, 
-				viewPrototypeD, 
+				vEewePrototypeA, 
+				vEewePrototypeB, 
+				vEewePrototypeC, 
+				vEewePrototypeD, 
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			viewPrototypeA = {
+			vEewePrototypeA = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -31,7 +31,7 @@
 				}
 			}
 
-			viewPrototypeB = {
+			vEewePrototypeB = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -43,7 +43,7 @@
 				}
 			}
 
-			viewPrototypeC = {
+			vEewePrototypeC = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -55,7 +55,7 @@
 				}
 			}
 
-			viewPrototypeD = {
+			vEewePrototypeD = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -70,7 +70,7 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = ((((Backbone.View.extend(viewPrototypeA)).extend(viewPrototypeB)).extend(viewPrototypeC)).extend(viewPrototypeD))
+				views[i] = ((((Backbone.View.extend(vEewePrototypeA)).extend(vEewePrototypeB)).extend(vEewePrototypeC)).extend(vEewePrototypeD))
 			}
 			end = (new Date()).getTime();
 		</script>
