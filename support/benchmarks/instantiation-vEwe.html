@@ -5,23 +5,23 @@
 		<link type="text/css" rel="stylesheet" href="../css/main.css">
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
-		<script type="text/javascript" src="../../js/view.js"></script>
+		<script type="text/javascript" src="../../js/vewe.js"></script>
 		<script type="text/javascript">
 			var i,
 				count = 100000,
 				start,
 				end,
-				viewPrototypeABCDE, 
+				vEwePrototypeABCDE, 
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			viewPrototypeABCDE = {
+			vEwePrototypeABCDE = {
 				'events': [
-					['view.on','a'],
-					['view.on','b'],
-					['view.on','c'],
-					['view.on','d'],
+					['vEwe.on','a'],
+					['vEwe.on','b'],
+					['vEwe.on','c'],
+					['vEwe.on','d'],
 				],
 				'a': function(e){
 					return true;
@@ -40,7 +40,7 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = viewFactory.create(viewPrototypeABCDE);
+				views[i] = vEweFactory.create(vEwePrototypeABCDE);
 			}
 			end = (new Date()).getTime();
 		</script>

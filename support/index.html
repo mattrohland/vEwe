@@ -39,10 +39,10 @@
 }</pre>
 			<p>Include the JS dependencies.</p>
 <pre>&lt;script type=&quot;text/javascript&quot; src=&quot;http://code.jquery.com/jquery-2.0.2.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;../../js/view.js&quot;&gt;&lt;/script&gt;</pre>
+&lt;script type=&quot;text/javascript&quot; src=&quot;../../js/vewe.js&quot;&gt;&lt;/script&gt;</pre>
 
 			<p>Define a view prototype.</p>
-<pre>viewPrototype = {
+<pre>vEwePrototype = {
 	'events': [
 		['click','.box','hideBox'],
 		['click','.tada','showBox']
@@ -60,11 +60,11 @@
 }</pre>
 
 			<p>Create a view from the previously defined prototype.</p>
-<pre>var view = viewFactory.create(viewPrototype);</pre>
+<pre>var vEwe = vEweFactory.create(vEwePrototype);</pre>
 
 			<p>On DOM ready turn the view events on.</p>
-<pre>view.$(function(){
-	view.on();
+<pre>vEwe.$(function(){
+	vEwe.on();
 });</pre>
 			<p><a href="examples/101-the-basics.html">See Example</a></p>
 
@@ -72,9 +72,9 @@
 			<p>Now let's say you want to make a new view that inherits the methods available in the view from 101.</p>
 
 			<p>Define a second prototype.</p>
-<pre>viewPrototypeExtended = {
+<pre>vEwePrototypeExtended = {
 	'events': [
-		['view.on','tada'],
+		['vEwe.on','tada'],
 		['click','.box','hideBox'],
 		['click','.tada','showBox']
 	],
@@ -84,7 +84,7 @@
 }</pre>
 
 			<p>Pass both prototypes into the view factory's create method so that a view can be generated using both prototypes.</p>
-<pre>view = viewFactory.create(viewPrototype, viewPrototypeExtended);</pre>
+<pre>vEwe = vEweFactory.create(vEwePrototype, vEwePrototypeExtended);</pre>
 
 			<p><a href="examples/201-inheritance.html">See Example</a></p>
 
@@ -92,16 +92,16 @@
 			<p>The basic inheritance from 201 is pretty spiffy, but how much cooler would it have been if you hadn't had to supply all those duplicate events to each prototype? Surprise!</p>
 
 			<p>Define a new prototype. Notice that we aren't bothering to include events from the parent prototype.</p>
-<pre>viewPrototypeExtended = {
+<pre>vEwePrototypeExtended = {
 	'events': [
-		['view.on', 'addSpin'],
+		['vEwe.on', 'addSpin'],
 	],
 	'addSpin': function(e){
 		e.data.$el.find('.tada > img').addClass('spintastic');
 	}
 }</pre>
 			<p>Using our trusty create method we now specify a special type of inheritance.</p>
-<pre>view = viewFactory.create('inheritAndMergeEvents', viewPrototype, viewPrototypeExtended);</pre>
+<pre>vEwe = vEweFactory.create('inheritAndMergeEvents', vEwePrototype, vEwePrototypeExtended);</pre>
 			<p><a href="examples/202-inheritance-and-events.html">See Example</a></p>
 
 		</div>

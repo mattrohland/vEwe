@@ -11,12 +11,12 @@
 				count = 100000,
 				start,
 				end,
-				viewPrototypeABCDE, 
+				vEwePrototypeABCDE, 
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			viewPrototypeABCDE = {
+			vEwePrototypeABCDE = {
 				'events': [
 					['render','a'],
 					['render','b'],
@@ -40,7 +40,7 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = Backbone.View.extend(viewPrototypeABCDE);
+				views[i] = Backbone.View.extend(vEwePrototypeABCDE);
 			}
 			end = (new Date()).getTime();
 		</script>

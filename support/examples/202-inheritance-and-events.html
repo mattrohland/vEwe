@@ -27,12 +27,12 @@
 		</style>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
-		<script type="text/javascript" src="../../js/view.js"></script>
+		<script type="text/javascript" src="../../js/vewe.js"></script>
 		<script type="text/javascript">
-			var viewPrototype, viewPrototypeExtended, view;
+			var vEwePrototype, vEwePrototypeExtended, view;
 
 			// Define a view prototype
-			viewPrototype = {
+			vEwePrototype = {
 				'events': [
 					['click','.box','hideBox'],
 					['click','.tada','showBox']
@@ -50,9 +50,9 @@
 			}
 
 			// Define a second view prototype
-			viewPrototypeExtended = {
+			vEwePrototypeExtended = {
 				'events': [
-					['view.on', 'addSpin'],
+					['vEwe.on', 'addSpin'],
 				],
 				'addSpin': function(e){
 					e.data.$el.find('.tada > img').addClass('spintastic');
@@ -61,9 +61,9 @@
 
 			// Have the second prototype inherit from the first...
 			// and don't lose the first prototype's events
-			view = viewFactory.create('inheritAndMergeEvents', viewPrototype, viewPrototypeExtended);
-			view.$(function(){
-				view.on();
+			vEwe = vEweFactory.create('inheritAndMergeEvents', vEwePrototype, vEwePrototypeExtended);
+			vEwe.$(function(){
+				vEwe.on();
 			});
 		</script>
 	</head>
