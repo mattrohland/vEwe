@@ -11,12 +11,12 @@
 				count = 100000,
 				start,
 				end,
-				vEewePrototypeABCDE, 
+				vEwePrototypeABCDE, 
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			vEewePrototypeABCDE = {
+			vEwePrototypeABCDE = {
 				'events': [
 					['vEwe.on','a'],
 					['vEwe.on','b'],
@@ -40,7 +40,7 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = vEweFactory.create(vEewePrototypeABCDE);
+				views[i] = vEweFactory.create(vEwePrototypeABCDE);
 			}
 			end = (new Date()).getTime();
 		</script>

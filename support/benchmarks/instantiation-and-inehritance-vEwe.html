@@ -11,15 +11,15 @@
 				count = 100000,
 				start,
 				end,
-				vEewePrototypeA, 
-				vEewePrototypeB, 
-				vEewePrototypeC, 
-				vEewePrototypeD,
+				vEwePrototypeA, 
+				vEwePrototypeB, 
+				vEwePrototypeC, 
+				vEwePrototypeD,
 				views = [],
 				results = '';
 
 			// Define a view prototype
-			vEewePrototypeA = {
+			vEwePrototypeA = {
 				'events': [
 					['vEwe.on','a'],
 					['vEwe.on','b'],
@@ -31,7 +31,7 @@
 				}
 			}
 
-			vEewePrototypeB = {
+			vEwePrototypeB = {
 				'events': [
 					['vEwe.on','a'],
 					['vEwe.on','b'],
@@ -43,7 +43,7 @@
 				}
 			}
 
-			vEewePrototypeC = {
+			vEwePrototypeC = {
 				'events': [
 					['vEwe.on','a'],
 					['vEwe.on','b'],
@@ -55,7 +55,7 @@
 				}
 			}
 
-			vEewePrototypeD = {
+			vEwePrototypeD = {
 				'events': [
 					['vEwe.on','a'],
 					['vEwe.on','b'],
@@ -70,7 +70,7 @@
 			// Create a view from the view prototype
 			start = (new Date()).getTime();
 			for(i = 0; i<count; i++){
-				views[i] = vEweFactory.create(vEewePrototypeA, vEewePrototypeB, vEewePrototypeC, vEewePrototypeD);
+				views[i] = vEweFactory.create(vEwePrototypeA, vEwePrototypeB, vEwePrototypeC, vEwePrototypeD);
 			}
 			end = (new Date()).getTime();
 		</script>

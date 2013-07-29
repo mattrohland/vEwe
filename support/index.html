@@ -42,7 +42,7 @@
 &lt;script type=&quot;text/javascript&quot; src=&quot;../../js/vewe.js&quot;&gt;&lt;/script&gt;</pre>
 
 			<p>Define a view prototype.</p>
-<pre>vEewePrototype = {
+<pre>vEwePrototype = {
 	'events': [
 		['click','.box','hideBox'],
 		['click','.tada','showBox']
@@ -60,7 +60,7 @@
 }</pre>
 
 			<p>Create a view from the previously defined prototype.</p>
-<pre>var vEwe = vEweFactory.create(vEewePrototype);</pre>
+<pre>var vEwe = vEweFactory.create(vEwePrototype);</pre>
 
 			<p>On DOM ready turn the view events on.</p>
 <pre>vEwe.$(function(){
@@ -72,7 +72,7 @@
 			<p>Now let's say you want to make a new view that inherits the methods available in the view from 101.</p>
 
 			<p>Define a second prototype.</p>
-<pre>vEewePrototypeExtended = {
+<pre>vEwePrototypeExtended = {
 	'events': [
 		['vEwe.on','tada'],
 		['click','.box','hideBox'],
@@ -84,7 +84,7 @@
 }</pre>
 
 			<p>Pass both prototypes into the view factory's create method so that a view can be generated using both prototypes.</p>
-<pre>vEwe = vEweFactory.create(vEewePrototype, vEewePrototypeExtended);</pre>
+<pre>vEwe = vEweFactory.create(vEwePrototype, vEwePrototypeExtended);</pre>
 
 			<p><a href="examples/201-inheritance.html">See Example</a></p>
 
@@ -92,7 +92,7 @@
 			<p>The basic inheritance from 201 is pretty spiffy, but how much cooler would it have been if you hadn't had to supply all those duplicate events to each prototype? Surprise!</p>
 
 			<p>Define a new prototype. Notice that we aren't bothering to include events from the parent prototype.</p>
-<pre>vEewePrototypeExtended = {
+<pre>vEwePrototypeExtended = {
 	'events': [
 		['vEwe.on', 'addSpin'],
 	],
@@ -101,7 +101,7 @@
 	}
 }</pre>
 			<p>Using our trusty create method we now specify a special type of inheritance.</p>
-<pre>vEwe = vEweFactory.create('inheritAndMergeEvents', vEewePrototype, vEewePrototypeExtended);</pre>
+<pre>vEwe = vEweFactory.create('inheritAndMergeEvents', vEwePrototype, vEwePrototypeExtended);</pre>
 			<p><a href="examples/202-inheritance-and-events.html">See Example</a></p>
 
 		</div>
