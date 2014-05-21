@@ -78,8 +78,8 @@ describe('vewe.js: vEweFactory.inheritAndMergeEvents', function(){
 /*
 	View
 */
-describe('vewe.js: view', function(){
-	var view;
+describe('vewe.js: vEwe', function(){
+	var vEwe;
 
 	beforeEach(function() {
 		vEwe = vEweFactory.create({
@@ -88,10 +88,10 @@ describe('vewe.js: view', function(){
 	});
 
 	it('It should be an object', function(){
-		expect(typeof view).toEqual('object');
+		expect(typeof vEwe).toEqual('object');
 	});
 
 	it('It should be able to call methods from it\'s prototype', function(){
-		expect(view.a()).toBeTruthy();
+		expect(vEwe.a()).toBeTruthy();
 	});
 });

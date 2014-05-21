@@ -126,6 +126,13 @@
 						delete this.element;
 						this.element = new Element(this.selector);
 						this.$el = this.element.get(); // For shortcut sake.
+						this._addShepheard();
+					},
+					'_addShepheard': function(){
+						if(
+							typeof this.shepHeard === 'object'
+							&& $.inArray(this.shepHeard.element.get(), this.$el) === -1
+						) this.$el = this.$el.add(this.shepHeard.element.get());
 					},
 					'_eventStandardize': function(rawEve){
 						var me = this,
@@ -170,6 +177,7 @@
 				};
 
 				this.findAndSet();
+
 				return this;
 			};
 			Element.prototype = {
@@ -195,17 +203,17 @@
 			};
 			ShepHeard.prototype = {
 				'$': $,
-				'evenNamePrefix': 'shepheard',
+				'eventNamePrefix': 'shepheard_',
 				'publish': function(eventName, options){
 					if(typeof options == 'undefined') options = {};
 
-					this.element.$el.trigger(this.evenNamePrefix+eventName, [options]);
+					this.element.get().trigger(this.eventNamePrefix + eventName, [options]);
 				},
 				'subscribe': function(eventName, callback){
-					this.element.$el.on(this.evenNamePrefix+eventName, callback);
+					this.element.get().on(this.eventNamePrefix + eventName, callback);
 				},
 				'unsubscribe': function(){
-					this.element.$el.off(this.evenNamePrefix+eventName);
+					this.element.get().off(this.eventNamePrefix + eventName);
 				}
 			};
 

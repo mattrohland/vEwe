@@ -7,6 +7,9 @@
 			.tada{
 				display: none;
 			}
+			.stage > div {
+				margin-top: 1em;
+			}
 		</style>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
@@ -21,15 +24,15 @@
 			vEwePrototype1 = {
 				'selector': '#set1, #set2',
 				'events': [
-					['shepHeard.hideBox','hideBox'],
-					['shepHeard.showBox','showBox']
+					['shepheard_hidebox','hideBox'],
+					['shepheard_showbox','showBox']
 				],
-				'hideBox': function(e){
+				'hideBox': function(e, vEwe){
 					// Hide the box and ta-da!
 					e.data.$el.find('.box').hide();
 					e.data.$el.find('.tada').show();
 				},
-				'showBox': function(e){
+				'showBox': function(e, vEwe){
 					// Show the box and hide animal
 					e.data.$el.find('.tada').hide();
 					e.data.$el.find('.box').show();
@@ -42,28 +45,21 @@
 				'events': [
 					['click','tellWorldToToggleBox']
 				],
-				'tellWorldToToggleBox': function(e,v){
-					console.log(e,v);
+				'tellWorldToToggleBox': function(e, vEwe){
 					// Tell world to hide the boxes
-					if(e.data.$el.find('.box:first').is(':visible')){
-						console.log('hideBox');
-						e.data.shepHeard.publish('hideBox');
+					if(e.data.$('.box:first').is(':visible')){
+						e.data.shepHeard.publish('hidebox');
 					}else{
-						console.log('showBox');
-						e.data.shepHeard.publish('showBox');
+						e.data.shepHeard.publish('showbox');
 					}
 				}
 			}
 
 			// Create a views from the view prototype
 			vEwe1 = vEweFactory.create(vEwePrototype1);
-			vEwe1.$(function(){
-				console.log(vEwe1.selector);
-				vEwe1.on();
-			});
 			vEwe2 = vEweFactory.create(vEwePrototype2);
-			vEwe2.$(function(){
-				console.log(vEwe2.selector);
+			$(function(){
+				vEwe1.on();
 				vEwe2.on();
 			});
 		</script>
@@ -89,7 +85,7 @@
 			</div>
 			<div id="set2">
 				<figure class="tada">
-					<img src="../images/frog.png">
+					<img src="../images/fox.png">
 					<figcaption>Ta-da!</figcaption>
 				</figure>
 				<figure class="box">
