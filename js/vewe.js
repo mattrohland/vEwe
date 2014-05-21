@@ -71,6 +71,9 @@
 				'inherit': function(){
 					var extendArgs = (Array.prototype.slice.call(arguments))
 
+					// Insure that we start with a new object (we don't want accidental inheritance)
+					extendArgs.unshift({});
+
 					// Runs an extend on all arguments
 					return this.$.extend.apply(this,extendArgs);
 				},
