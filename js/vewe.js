@@ -15,10 +15,15 @@
 			'3rdparty/jquery'
 		],
 		function($){ "use strict";
+			var VEweFactory,
+				Element,
+				ShepHeard;
+
 
 			// View Factory
 			// Assists in defining and instantiating Views.
-			var VEweFactory = function(){
+			VEweFactory = function(){
+				this.shepHeard = new ShepHeard();
 				return this;
 			};
 			VEweFactory.prototype = {
@@ -34,7 +39,10 @@
 						proto = {},
 						inheritanceMethod = 'inherit',
 						inheritanceArguments,
-						VEwe = function(){ return this; }; // Create vEwe "Class"
+						VEwe = function(){
+							this.shepHeard = me.shepHeard;
+							return this; 
+						}; // Create vEwe "Class"
 
 					// Process Arguments
 					if(arguments.length == 0){
@@ -153,7 +161,7 @@
 			// Element
 			// Enhances the VEwe's top level DOM element.
 			// Note: This is currently overkill.
-			var Element = function(selector){
+			Element = function(selector){
 				this.options = {
 					'selector': selector
 				};
@@ -173,6 +181,31 @@
 					return this.$el;
 				}
 			};
+
+
+			// ShepHeard
+			// Enhances the VEwe's top level DOM element.
+			// Note: This is currently overkill.
+			ShepHeard = function(){
+				this.element = new Element({});
+				return this;
+			};
+			ShepHeard.prototype = {
+				'$': $,
+				'evenNamePrefix': 'shepheard',
+				'publish': function(eventName, options){
+					if(typeof options == 'undefined') options = {};
+
+					this.element.$el.trigger(this.evenNamePrefix+eventName, [options]);
+				},
+				'subscribe': function(eventName, callback){
+					this.element.$el.on(this.evenNamePrefix+eventName, callback);
+				},
+				'unsubscribe': function(){
+					this.element.$el.off(this.evenNamePrefix+eventName);
+				}
+			};
+
 
 			// The VEwe Factory is intended to be sudo singleton in nature
 			// so we return an instance
