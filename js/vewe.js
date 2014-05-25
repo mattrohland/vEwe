@@ -5,6 +5,8 @@
  * Copyright (c) 2013 Matt Rohland
  * Released under the MIT license
  */
+ /* global define:true,$:false */
+ /* jshint strict:false,globalstrict:false */
 (function(){
 	// AMDless define method
 	if(typeof define !== 'function') define = function(a,b){ window.vEweFactory = b($); };
@@ -214,7 +216,6 @@
 					this.element.get().off(this.eventNamePrefix + eventName);
 				}
 			};
-
 
 			// The VEwe Factory is intended to be sudo singleton in nature
 			// so we return an instance
