@@ -7,14 +7,15 @@
  */
 (function(){
 	// AMDless define method
-	if(typeof define != 'function') define = function(a,b){ window.vEweFactory = b($); };
+	if(typeof define !== 'function') define = function(a,b){ window.vEweFactory = b($); };
 	
 	// AMD define wrapper
 	define(
 		[
 			'3rdparty/jquery'
 		],
-		function($){ "use strict";
+		function($){
+			'use strict';
 			var VEweFactory,
 				Element,
 				ShepHeard;
@@ -30,9 +31,9 @@
 				'$': $,
 				'create': function(){
 					var me = this,
-						vEwe;
+						VEwe;
 
-					return (vEwe = me.define.apply(me, arguments))? new vEwe : false ;
+					return (VEwe = me.define.apply(me, arguments))? new VEwe() : false ;
 				},
 				'define': function(){
 					var me = this,
@@ -45,12 +46,12 @@
 						}; // Create vEwe "Class"
 
 					// Process Arguments
-					if(arguments.length == 0){
+					if(arguments.length === 0){
 						return false;
-					}else if(typeof arguments[0] == 'object'){
-						inheritanceArguments = (Array.prototype.slice.call(arguments))
+					}else if(typeof arguments[0] === 'object'){
+						inheritanceArguments = (Array.prototype.slice.call(arguments));
 					}else{
-						inheritanceMethod = arguments[0]
+						inheritanceMethod = arguments[0];
 						inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
 					}
 
@@ -69,7 +70,7 @@
 					return VEwe;
 				},
 				'inherit': function(){
-					var extendArgs = (Array.prototype.slice.call(arguments))
+					var extendArgs = (Array.prototype.slice.call(arguments));
 
 					// Insure that we start with a new object (we don't want accidental inheritance)
 					extendArgs.unshift({});
@@ -86,11 +87,11 @@
 						events = [];
 
 					for(i in protos){
-						if(typeof protos[i]['events'] == 'object')
-							events = this._merge(events, protos[i]['events']);
+						if(typeof protos[i].events === 'object')
+							events = this._merge(events, protos[i].events);
 					}
 					proto = this.inherit.apply(this, arguments);
-					proto['events'] = events;
+					proto.events = events;
 
 					return proto;
 				},
@@ -209,7 +210,7 @@
 				'subscribe': function(eventName, callback){
 					this.element.get().on(this.eventNamePrefix + eventName, callback);
 				},
-				'unsubscribe': function(){
+				'unsubscribe': function(eventName){
 					this.element.get().off(this.eventNamePrefix + eventName);
 				}
 			};
