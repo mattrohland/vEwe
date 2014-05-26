@@ -5,44 +5,55 @@
  * Copyright (c) 2013 Matt Rohland
  * Released under the MIT license
  */
+ /* global define:true,$:false */
+ /* jshint strict:false,globalstrict:false */
 (function(){
 	// AMDless define method
-	if(typeof define != 'function') define = function(a,b){ window.vEweFactory = b($); };
+	if(typeof define !== 'function') define = function(a,b){ window.vEweFactory = b($); };
 	
 	// AMD define wrapper
 	define(
 		[
 			'3rdparty/jquery'
 		],
-		function($){ "use strict";
+		function($){
+			'use strict';
+			var VEweFactory,
+				Element,
+				ShepHeard;
+
 
 			// View Factory
 			// Assists in defining and instantiating Views.
-			var VEweFactory = function(){
+			VEweFactory = function(){
+				this.shepHeard = new ShepHeard();
 				return this;
 			};
 			VEweFactory.prototype = {
 				'$': $,
 				'create': function(){
 					var me = this,
-						vEwe;
+						VEwe;
 
-					return (vEwe = me.define.apply(me, arguments))? new vEwe : false ;
+					return (VEwe = me.define.apply(me, arguments))? new VEwe() : false ;
 				},
 				'define': function(){
 					var me = this,
 						proto = {},
 						inheritanceMethod = 'inherit',
 						inheritanceArguments,
-						VEwe = function(){ return this; }; // Create vEwe "Class"
+						VEwe = function(){
+							this.shepHeard = me.shepHeard;
+							return this; 
+						}; // Create vEwe "Class"
 
 					// Process Arguments
-					if(arguments.length == 0){
+					if(arguments.length === 0){
 						return false;
-					}else if(typeof arguments[0] == 'object'){
-						inheritanceArguments = (Array.prototype.slice.call(arguments))
+					}else if(typeof arguments[0] === 'object'){
+						inheritanceArguments = (Array.prototype.slice.call(arguments));
 					}else{
-						inheritanceMethod = arguments[0]
+						inheritanceMethod = arguments[0];
 						inheritanceArguments = (Array.prototype.slice.call(arguments)).slice(1);
 					}
 
@@ -61,7 +72,10 @@
 					return VEwe;
 				},
 				'inherit': function(){
-					var extendArgs = (Array.prototype.slice.call(arguments))
+					var extendArgs = (Array.prototype.slice.call(arguments));
+
+					// Insure that we start with a new object (we don't want accidental inheritance)
+					extendArgs.unshift({});
 
 					// Runs an extend on all arguments
 					return this.$.extend.apply(this,extendArgs);
@@ -75,11 +89,11 @@
 						events = [];
 
 					for(i in protos){
-						if(typeof protos[i]['events'] == 'object')
-							events = this._merge(events, protos[i]['events']);
+						if(typeof protos[i].events === 'object')
+							events = this._merge(events, protos[i].events);
 					}
 					proto = this.inherit.apply(this, arguments);
-					proto['events'] = events;
+					proto.events = events;
 
 					return proto;
 				},
@@ -104,6 +118,7 @@
 					'events': [],
 					'on': function(){
 						this._elementRefresh();
+						this._addShepHeard();
 						this._eventsOn();
 						this.$el.trigger('vEwe.on');
 					},
@@ -115,6 +130,9 @@
 						delete this.element;
 						this.element = new Element(this.selector);
 						this.$el = this.element.get(); // For shortcut sake.
+					},
+					'_addShepHeard': function(){
+						this.$el = this.$el.add(this.shepHeard.element.get());
 					},
 					'_eventStandardize': function(rawEve){
 						var me = this,
@@ -143,7 +161,7 @@
 						var i;
 						
 						for(i in this.events){
-							this.$el.off.apply(this.$el, this.events[i]);
+							this.$el.off.apply(this.$el, [this.events[i][0]]);
 						}
 					}
 				}
@@ -153,12 +171,13 @@
 			// Element
 			// Enhances the VEwe's top level DOM element.
 			// Note: This is currently overkill.
-			var Element = function(selector){
+			Element = function(selector){
 				this.options = {
 					'selector': selector
 				};
 
 				this.findAndSet();
+
 				return this;
 			};
 			Element.prototype = {
@@ -171,6 +190,30 @@
 				},
 				'get': function(){
 					return this.$el;
+				}
+			};
+
+
+			// ShepHeard
+			// Enhances the VEwe's top level DOM element.
+			// Note: This is currently overkill.
+			ShepHeard = function(){
+				this.element = new Element({});
+				return this;
+			};
+			ShepHeard.prototype = {
+				'$': $,
+				'eventNamePrefix': 'shepheard_',
+				'publish': function(eventName, options){
+					if(typeof options == 'undefined') options = {};
+
+					this.element.get().trigger(this.eventNamePrefix + eventName, [options]);
+				},
+				'subscribe': function(eventName, callback){
+					this.element.get().on(this.eventNamePrefix + eventName, callback);
+				},
+				'unsubscribe': function(eventName){
+					this.element.get().off(this.eventNamePrefix + eventName);
 				}
 			};
 

@@ -12,10 +12,12 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
 		<script type="text/javascript" src="../../js/vewe.js"></script>
 		<script type="text/javascript">
-			var vEwePrototype, view;
+			var vEwePrototype,
+				vEwe;
 
-			// Define a view prototype
+			// 1. Define a view prototype
 			vEwePrototype = {
+				'selector': '.stage',
 				'events': [
 					['click','.box','hideBox'],
 					['click','.tada','showBox']
@@ -32,9 +34,11 @@
 				}
 			}
 
-			// Create a view from the view prototype
+			// 2. Create a view from the view prototype
 			vEwe = vEweFactory.create(vEwePrototype);
-			vEwe.$(function(){
+
+			// 3. On DOMReady turn on the view
+			vEweFactory.$(function(){
 				vEwe.on();
 			});
 		</script>
@@ -42,6 +46,13 @@
 	<body>
 		<div class="stage">
 			<h1>101 - The Basics</h1>
+			<p>Setting up a view requires very little. All you need to do is:</p>
+				<ol>
+					<li>Define a prototype object</li>
+					<li>Have the vEweFactory create a view from that prototype</li>
+					<li>Turn on the view</li>
+				</ol>
+			<p>The demo below demonstrates how a view may subscribe to a user generated event (for example: a click) and run methods accordingly.</p>
 			<figure class="tada">
 				<img src="../images/frog.png">
 				<figcaption>Ta-da!</figcaption>

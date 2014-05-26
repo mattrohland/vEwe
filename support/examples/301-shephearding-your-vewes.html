@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<title>vEwe Examples | 301 - ShepHearding Your vEwes</title>
+
+		<link type="text/css" rel="stylesheet" href="../css/main.css">
+		<style type="text/css">
+			.tada{
+				display: none;
+			}
+			.stage > div {
+				margin-top: 1em;
+			}
+		</style>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
+		<script type="text/javascript" src="../../js/vewe.js"></script>
+		<script type="text/javascript">
+			var vEwePrototype1,
+				vEwe1,
+				vEwePrototype2,
+				vEwe2;
+
+			// Define a view prototype
+			vEwePrototype1 = {
+				'selector': '#set1, #set2',
+				'events': [
+					['shepheard_hidebox','hideBox'],
+					['shepheard_showbox','showBox']
+				],
+				'hideBox': function(e, vEwe){
+					// Hide the box and ta-da!
+					e.data.$el.find('.box').hide();
+					e.data.$el.find('.tada').show();
+				},
+				'showBox': function(e, vEwe){
+					// Show the box and hide animal
+					e.data.$el.find('.tada').hide();
+					e.data.$el.find('.box').show();
+				}
+			}
+
+			// Define a view prototype
+			vEwePrototype2 = {
+				'selector': '#switch1',
+				'events': [
+					['click','tellWorldToToggleBox']
+				],
+				'tellWorldToToggleBox': function(e, vEwe){
+					// Tell world to hide the boxes
+					if(e.data.$('.box:first').is(':visible')){
+						e.data.shepHeard.publish('hidebox');
+					}else{
+						e.data.shepHeard.publish('showbox');
+					}
+				}
+			}
+
+			// Create a views from the view prototype
+			vEwe1 = vEweFactory.create(vEwePrototype1);
+			vEwe2 = vEweFactory.create(vEwePrototype2);
+			$(function(){
+				vEwe1.on();
+				vEwe2.on();
+			});
+		</script>
+	</head>
+	<body>
+		<div class="stage">
+			<h1>301 - ShepHearding Your vEwe</h1>
+			<p>
+				In previous examples we have talked covered how to enrich each vEwe through inehritance of prototypes. Now we will cover how to make these vEwes work together.
+			</p>
+			<p>
+				It stands to reason that at some point an application may require vEwes to communicate. vEwe's are able to do so quite painlessly via a &quot;ShepHeard&quot;. The ShepHeard is an object (not in the DOM) that vEwes can &quot;publish&quot; messages to. Other vEwes can then &quot;subscribe&quot; to these messages directly or via their "events".
+			</p>
+			<div id="switch1">
+				<figure>
+					<img src="../images/switch.png">
+					<figcaption>Toggle the boxes.</figcaption>
+				</figure>
+			</div>
+			<div id="set1">
+				<figure class="tada">
+					<img src="../images/frog.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
+			<div id="set2">
+				<figure class="tada">
+					<img src="../images/fox.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,3 +1,4 @@
+'use strict';
 /*
 	View Factory
 */
@@ -78,8 +79,8 @@ describe('vewe.js: vEweFactory.inheritAndMergeEvents', function(){
 /*
 	View
 */
-describe('vewe.js: view', function(){
-	var view;
+describe('vewe.js: Basic vEwe', function(){
+	var vEwe;
 
 	beforeEach(function() {
 		vEwe = vEweFactory.create({
@@ -88,10 +89,57 @@ describe('vewe.js: view', function(){
 	});
 
 	it('It should be an object', function(){
-		expect(typeof view).toEqual('object');
+		expect(typeof vEwe).toEqual('object');
 	});
 
 	it('It should be able to call methods from it\'s prototype', function(){
-		expect(view.a()).toBeTruthy();
+		expect(vEwe.a()).toBeTruthy();
 	});
+});
+
+describe('vewe.js: vEwe ShepHearding', function(){
+	var vEwe = vEweFactory.create({
+			'events': [
+				['shepheard_dance', 'dance']
+			],
+			'dance': function(){
+				didDance = true;
+			}
+		}),
+		bossyVEwe = vEweFactory.create({
+			'triggerDance': function(){
+				this.shepHeard.publish('dance');
+			}
+		}),
+		didDance;
+
+	beforeEach(function() {
+		didDance = false;
+		vEwe.on();
+		bossyVEwe.on();
+	});
+
+	afterEach(function() {
+		vEwe.off();
+		bossyVEwe.off();
+	});
+
+	it('The shepHeard should be an object', function(){
+		expect(typeof vEwe.shepHeard).toEqual('object');
+	});
+
+	it('The shepHeard should be able to trigger events', function(){
+		bossyVEwe.triggerDance();
+
+		expect(didDance).toEqual(true);
+	});
+
+	it('The shepHeard should not be able to trigger events if the vEwe is off.', function(){
+		vEwe.off();
+		bossyVEwe.off();
+		bossyVEwe.triggerDance();
+
+		expect(didDance).toEqual(false);
+	});
+
 });
