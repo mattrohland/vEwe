@@ -1,38 +1,25 @@
 <html>
 	<head>
-		<title>vEwe Examples | 202 - Inheritance &amp; Merged Events</title>
+		<title>vEwe Examples | 202 - Inheritance &amp; Events</title>
 
 		<link type="text/css" rel="stylesheet" href="../css/main.css">
 		<style type="text/css">
 			.tada{
 				display: none;
 			}
-			.stage em{
-				color: red;
-			}
-
-			/* Don't get dizzy, we're about to spin! */
-			@keyframes spintastic{
-				from{transform: rotate(0deg);}
-				to{transform: rotate(360deg);}
-			}
-			@-webkit-keyframes spintasticWK{
-				from{-webkit-transform: rotate(0deg);}
-				to{-webkit-transform: rotate(360deg);}
-			}
-			.spintastic{
-				animation: spintastic 5s infinite linear;
-				-webkit-animation: spintasticWK 5s infinite linear;
-			}
 		</style>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
 		<script type="text/javascript" src="../../js/vewe.js"></script>
 		<script type="text/javascript">
-			var vEwePrototype, vEwePrototypeExtended, view;
+			var vEweAPrototype,
+				vEweBPrototype,
+				vEweA,
+				vEweB;
 
 			// Define a view prototype
-			vEwePrototype = {
+			vEweAPrototype = {
+				'selector': '#vewe-a',
 				'events': [
 					['click','.box','hideBox'],
 					['click','.tada','showBox']
@@ -50,37 +37,59 @@
 			}
 
 			// Define a second view prototype
-			vEwePrototypeExtended = {
+			vEweBPrototype = {
+				'selector': '#vewe-b',
 				'events': [
-					['vEwe.on', 'addSpin'],
+					['vEwe.on','tada']
 				],
-				'addSpin': function(e){
-					e.data.$el.find('.tada > img').addClass('spintastic');
+				'tada': function(e){
+					e.data.$el.find('.tada img').attr('src','../images/duck.png');
 				}
 			}
 
-			// Have the second prototype inherit from the first...
-			// and don't lose the first prototype's events
-			vEwe = vEweFactory.create('inheritAndMergeEvents', vEwePrototype, vEwePrototypeExtended);
-			vEwe.$(function(){
-				vEwe.on();
+			vEweA = vEweFactory.create(vEweAPrototype);
+			// Have the second prototype inherit from the first
+			vEweB = vEweFactory.create('inheritAndMergeEvents',vEweAPrototype, vEweBPrototype);
+			vEweFactory.$(function(){
+				vEweA.on();
+				vEweB.on();
 			});
 		</script>
 	</head>
 	<body>
 		<div class="stage">
-			<h1>202 - Inheritance &amp; Merged Events</h1>
-			<figure class="tada">
-				<img src="../images/frog.png">
-				<figcaption>Ta-da!</figcaption>
-			</figure>
-			<figure class="box">
-				<img src="../images/box.png">
-				<figcaption>What's under the box?</figcaption>
-			</figure>
+			<h1>202 - Inheritance &amp; Events</h1>
 			<p>
-				<em>Warning: This example employs a CSS animation so use a big boy browser.</em>
+				In example 201 you may have noticed that both prototypes' events were a comprhensive list of all events they subscribed to. While most developers are familiar with how arrays within objects typically inherit, it may not be the effect you wish to go for.
 			</p>
+			<p>
+				Let's consider that every vEwe prototype is a self contained set of behaviors. It stands to reason that each prototype should only contain &quot;events&quot; that pertain to that particular behavior. Defining your prototypes in this way also allows each intantiated vEwe to be a unique combination of behaviors (prototypes) that are scoped to a single DOM element (as described by the &quot;selector&quot;).
+			</p>
+			<p>
+				If you wish to subscribe to the above concept you can redefine the inheritance model of your vEwes. This is done by specifying &quot;inheritAndMergeEvents&quot; when creating the view.
+			</p>
+			<div id="vewe-a">
+				<h2>vEwe A</h2>
+				<figure class="tada">
+					<img src="../images/frog.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
+			<div id="vewe-b">
+				<h2>vEwe B (inherits from vEwe A)</h2>
+				<figure class="tada">
+					<img src="../images/frog.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
 		</div>
 	</body>
 </html>
