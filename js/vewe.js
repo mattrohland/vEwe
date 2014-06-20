@@ -118,7 +118,6 @@
 					'events': [],
 					'on': function(){
 						this._elementRefresh();
-						this._addShepHeard();
 						this._eventsOn();
 						this.$el.trigger('vEwe.on');
 					},
@@ -130,9 +129,6 @@
 						delete this.element;
 						this.element = new Element(this.selector);
 						this.$el = this.element.get(); // For shortcut sake.
-					},
-					'_addShepHeard': function(){
-						this.$el = this.$el.add(this.shepHeard.element.get());
 					},
 					'_eventStandardize': function(rawEve){
 						var me = this,
@@ -154,14 +150,17 @@
 
 						for(i in this.events){
 							eve = this._eventStandardize(this.events[i]);
-							this.$el.on.apply(this.$el, eve);
+
+							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.on.apply(this.$el, eve);
+							else this.$el.on.apply(this.$el, eve);
 						}
 					},
 					'_eventsOff': function(){
 						var i;
-						
+
 						for(i in this.events){
-							this.$el.off.apply(this.$el, [this.events[i][0]]);
+							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.$el, [this.events[i][0]]);
+							else this.$el.off.apply(this.$el, [this.events[i][0]]);
 						}
 					}
 				}
