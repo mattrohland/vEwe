@@ -52,6 +52,9 @@ pre{
 .stage > *:first-child{
 	margin-top: 0;
 }
+.stage .set{
+	margin-top: 20px;
+}
 
 @media(max-width: 880px){
 	.stage{

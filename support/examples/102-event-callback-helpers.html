@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<title>vEwe Examples | 102 - Event Callback Elements</title>
+
+		<link type="text/css" rel="stylesheet" href="../css/main.css">
+		<style type="text/css">
+			.tada{
+				display: none;
+			}
+		</style>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
+		<script type="text/javascript" src="../../js/vewe.js"></script>
+		<script type="text/javascript">
+			var vEwePrototype,
+				vEwe;
+
+			// 1. Define a view prototype
+			vEwePrototype = {
+				'selector': '.stage',
+				'events': [
+					['click','.box','hideBox'],
+					['click','.tada','showBox'],
+					['click','.reset','resetBoxes']
+				],
+				'hideBox': function(e){
+					$set = e.data.$(e.currentTarget).closest('.set');
+
+					// Hide the box and ta-da!
+					$set.find('.box').hide();
+					$set.find('.tada').show();
+				},
+				'showBox': function(e){
+					$set = e.data.$(e.currentTarget).closest('.set');
+
+					// Show the box and hide animal
+					$set.find('.tada').hide();
+					$set.find('.box').show();
+				},
+				'resetBoxes': function(e){
+					// Show all the boxes and hide all the animals
+					e.data.$el.find('.tada').hide();
+					e.data.$el.find('.box').show();
+				}
+			}
+
+			// 2. Create a view from the view prototype
+			vEwe = vEweFactory.create(vEwePrototype);
+
+			// 3. On DOMReady turn on the view
+			vEweFactory.$(function(){
+				vEwe.on();
+			});
+		</script>
+	</head>
+	<body>
+
+		<div class="stage">
+			<h1>102 - Event Callback Helpers</h1>
+
+			<p>Sloppy / loose selectors can make accessing the correct subset of elements challenging. One of the challenges faced is that within an event's callback, "event.data.$el" is an array of all elements that match the provided view selector (rather than the one most closely associated with your current event). In scenarios where a view's selector may have several matches you may find it easier to walk up the tree using the tried-and-true "event.currentTarget".</p>
+			<p>The example on this page shows how a single view can manage multiple elements (note that there are multiple ".set" matches).</p>
+
+			<button class="reset">Reset Boxes</button>
+
+			<div class="set">
+				<figure class="tada">
+					<img src="../images/frog.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
+			<div class="set">
+				<figure class="tada">
+					<img src="../images/frog.png">
+					<figcaption>Ta-da!</figcaption>
+				</figure>
+				<figure class="box">
+					<img src="../images/box.png">
+					<figcaption>What's under the box?</figcaption>
+				</figure>
+			</div>
+		</div>
+	</body>
+</html>
