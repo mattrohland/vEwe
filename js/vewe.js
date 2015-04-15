@@ -151,7 +151,7 @@
 						for(i in this.events){
 							eve = this._eventStandardize(this.events[i]);
 
-							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.on.apply(this.$el, eve);
+							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.on.apply(this.shepHeard.element.$el, eve);
 							else this.$el.on.apply(this.$el, eve);
 						}
 					},
@@ -159,7 +159,7 @@
 						var i;
 
 						for(i in this.events){
-							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.$el, [this.events[i][0]]);
+							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.shepHeard.element.$el, [this.events[i][0]]);
 							else this.$el.off.apply(this.$el, [this.events[i][0]]);
 						}
 					}
