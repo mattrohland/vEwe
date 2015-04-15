@@ -156,9 +156,12 @@
 						}
 					},
 					'_eventsOff': function(){
-						var i;
+						var i,
+							eve;
 
 						for(i in this.events){
+							eve = this._eventStandardize(this.events[i]);
+
 							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.shepHeard.element.$el, [this.events[i][0]]);
 							else this.$el.off.apply(this.$el, [this.events[i][0]]);
 						}
