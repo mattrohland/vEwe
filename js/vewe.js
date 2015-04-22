@@ -103,8 +103,8 @@
 						ii,
 						merged = [];
 
-					for(i in arguments){
-						for(ii in arguments[i]){
+					for(i=0;i<arguments.length;i++){
+						for(ii=0;ii<arguments[i].length;ii++){
 							merged.push(arguments[i][ii]);
 						}
 					}
