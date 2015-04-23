@@ -88,7 +88,7 @@
 						proto,
 						events = [];
 
-					for(i in protos){
+					for(i=0;i<protos.length;i++){
 						if(typeof protos[i].events === 'object')
 							events = this._merge(events, protos[i].events);
 					}
@@ -103,8 +103,8 @@
 						ii,
 						merged = [];
 
-					for(i in arguments){
-						for(ii in arguments[i]){
+					for(i=0;i<arguments.length;i++){
+						for(ii=0;ii<arguments[i].length;ii++){
 							merged.push(arguments[i][ii]);
 						}
 					}
@@ -148,7 +148,7 @@
 						var i,
 							eve;
 
-						for(i in this.events){
+						for(i=0;i<this.events.length;i++){
 							eve = this._eventStandardize(this.events[i]);
 
 							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.on.apply(this.shepHeard.element.$el, eve);
@@ -159,7 +159,7 @@
 						var i,
 							eve;
 
-						for(i in this.events){
+						for(i=0;i<this.events.length;i++){
 							eve = this._eventStandardize(this.events[i]);
 
 							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.shepHeard.element.$el, [this.events[i][0]]);
