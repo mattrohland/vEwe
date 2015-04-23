@@ -219,7 +219,7 @@
 				}
 			};
 
-			// The VEwe Factory is intended to be sudo singleton in nature
+			// The VEwe Factory is intended to be pseudo singleton in nature
 			// so we return an instance
 			return new VEweFactory();
 		}
