@@ -8,4 +8,4 @@ vEwe is a JS library used to manage events through an easy to extend view object
 + Light weight prototypical view objects
 + Events with all the power of jQuery's .on()
 
-For more information visit: http://vewe.mattrohland.com/
+For more information visit: http://mattrohland.github.io/vEwe
