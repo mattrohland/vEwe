@@ -49,7 +49,7 @@
 <li>AMD (asynchronous module definition) ready</li>
 <li>Unlimited inheritance in 2 flavors</li>
 <li>Lightweight prototypical view objects</li>
-<li>Events with all the power of jQuery's .on()</li>
+<li>Events with all the power of <code>jQuery.on()</code></li>
 </ul>
 <p>vEwes provide a format for organizing a cohesive set of interactions without being extremely restrictive. It is up to the developer to determine what set of interactions each set should entail.</p>
 <h2>Simple Example</h2><p>A very simple vEwe that triggers a confirmation prompt when a form's cancel button is clicked could be achieved with the following:</p>
@@ -74,6 +74,43 @@ vEwe = vEweFactory.create(vEwePrototype);
 vEweFactory.$(function(){
     vEwe.on();
 });</code></pre><p><em>Use of a reset button and a confirm popup in a single example -- how quaint.</em></p>
+<h2>The vEwe</h2><h3>Selector (<code>this.selector</code>)</h3><p>The intention of the vEwe's primary selector is to define the vEwe's area of operation within the DOM. A selector can be an individual DOM element or a string written in the CSS-esque format jQuery users are familiar with (https://api.jquery.com/category/selectors/).</p>
+<p>While it is possible for a vEwe's selector to be all-encompassing by setting it to <code>window</code> those building larger applications will find that grouping similar functionality into smaller vEwe's with a very specific scope and purpose produces a more maintainable system.</p>
+<h3>Events (<code>this.events</code>)</h3><p>The fundamental objective of vEwe is to provide a simple interface that can be used to listen and react to JS events. Every vEwe contains an array of event binds that will be turned on when the vEwe's <code>this.on()</code> method is invoked and off when the vEwe's <code>this.off()</code> method is invoked.</p>
+<p>The array of event bind instructions are stored in the vEwe at <code>this.events</code>. Each event bind instruction set is itself an array with a specific structure; A structure that closely mimics <code>jQuery.on()</code> (http://api.jquery.com/on/).</p>
+<p><strong>Event</strong> - The first item in the array is the event name as a string (https://developer.mozilla.org/en-US/docs/Web/Events).</p>
+<p><strong>Method</strong> - The last item in the array is a string representing the method in the current vEwe that will be invoked.</p>
+<p><strong>Sub-selector (optional)</strong>  - If there are 3 items in the array the second item is a selector to further limit the scope in which the event must occur. Keep in mind that a vEwe is already limiting the scope in which it is listening for an event to that vEwe's defined <code>this.selector</code>.</p>
+<p><strong>For example:</strong></p>
+<pre class="prettyprint source"><code>vEwePrototype = {
+    'events': [
+        ['event','method'],
+        ['event','sub-selector','method']
+    ],
+    'method': function(e){
+        // Do something.
+    }
+}</code></pre><p><em>For those of you familiar with jQuery.on(), you may have noticed that the &quot;data&quot; passed with the event can't be configured in this format. The data associated with the event will always be the current vEwe. If you have information that must be passed to the method, it should be made available to the current vEwe.</em></p>
+<h4>Custom Events</h4><h5>vEwe.on</h5><p>Each vEwe instance can be turned on or off. When the vEwe's <code>this.on()</code> method is invoked a custom event is triggered on the vEwe's primary selector. Like other events, this custom event can be used in <code>this.events</code> entries to bind a vEwe method to the &quot;vEwe.on&quot; event.</p>
+<p><strong>For example:</strong></p>
+<pre class="prettyprint source"><code>vEwePrototype = {
+    'events': [
+        ['vEwe.on','method']
+    ],
+    'method': function(e){
+        // Do something.
+    }
+}</code></pre><h5>vEwe.off</h5><p>Each vEwe instance can be turned on or off. When the vEwe's <code>this.off()</code> method is invoked a custom event is triggered on the vEwe's primary selector. Like other events, this custom event can be used in <code>this.events</code> entries to bind a vEwe method to the &quot;vEwe.off&quot; event.</p>
+<p><strong>For example:</strong></p>
+<pre class="prettyprint source"><code>vEwePrototype = {
+    'events': [
+        ['vEwe.off','method']
+    ],
+    'method': function(e){
+        // Do something.
+    }
+}</code></pre><h3>Event Methods</h3><p>When a registered event occurs the correlating method within the vEwe is invoked, these methods are referred to as event methods.</p>
+<p>When an event method is invoked its first (and only) parameter is a jQuery event object. The event object (https://api.jquery.com/category/events/event-object/). The event object's <code>data</code> (https://api.jquery.com/event.data/) will always be the current vEwe instance.</p>
 <h2>More...</h2><p>For more information visit: http://mattrohland.github.io/vEwe</p></article>
     </section>
 
@@ -91,7 +128,7 @@ vEweFactory.$(function(){
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Jul 05 2015 23:00:13 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Oct 25 2015 17:32:52 GMT-0400 (EDT)
 </footer>
 
 <script> prettyPrint(); </script>
