@@ -95,6 +95,17 @@ describe('vewe.js: Basic vEwe', function(){
 	it('It should be able to call methods from it\'s prototype', function(){
 		expect(vEwe.a()).toBeTruthy();
 	});
+
+	it('It should be able to change state from on to off.', function(){
+		expect(vEwe.isOn).toBe(false);
+
+		vEwe.on()
+		expect(vEwe.isOn).toBe(true);
+
+		vEwe.off()
+		expect(vEwe.isOn).toBe(false);
+	});
+
 });
 
 describe('vewe.js: vEwe ShepHearding', function(){

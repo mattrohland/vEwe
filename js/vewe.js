@@ -171,6 +171,12 @@
 					 */
 					'events': [],
 					/**
+					 * A boolean indicator of the view's on / off state.
+					 *
+					 * @type {boolean}
+					 */
+					'isOn': false,
+					/**
 					 * A method used to turn on a view's event listeners.
 					 *
 					 * @function
@@ -217,6 +223,7 @@
 							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.on.apply(this.shepHeard.element.$el, eve);
 							else this.$el.on.apply(this.$el, eve);
 						}
+						this.isOn = true;
 					},
 					'_eventsOff': function(){
 						var i,
@@ -228,6 +235,7 @@
 							if(eve[0].indexOf(this.shepHeard.eventNamePrefix) === 0) this.shepHeard.element.$el.off.apply(this.shepHeard.element.$el, [this.events[i][0]]);
 							else this.$el.off.apply(this.$el, [this.events[i][0]]);
 						}
+						this.isOn = false;
 					}
 				}
 			};
