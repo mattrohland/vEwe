@@ -1,4 +1,4 @@
-#vEwe - A Javascript Event Manager
+# vEwe - A JavaScript Event Manager
 
 vEwe is a JS library used to manage events through an easy to extend view object. With jQuery as its sole dependency it provides a lightweight alternative for those wishing to avoid a full fledged "framework".
 
